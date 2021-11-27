@@ -34,7 +34,7 @@ func main() {
 }
 ```
 
-### Client-Side service Discovery
+### Client-Side Service Discovery
 
 ```go
 func main() {
