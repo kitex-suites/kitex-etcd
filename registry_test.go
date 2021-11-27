@@ -7,7 +7,7 @@ import (
 )
 
 func TestEtcdRegister(t *testing.T) {
-	registry, err := kitexetcd.NewEtcdRegistry(&kitexetcd.NewEtcdConfig{
+	registry, err := kitexetcd.NewEtcdRegistry(&kitexetcd.NewRegistryConfig{
 		EtcdUrl: "http://127.0.0.1:2397",
 	})
 	if err != nil {

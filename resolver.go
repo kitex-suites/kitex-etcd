@@ -14,7 +14,7 @@ type etcdResolver struct {
 	etcdClient *clientv3.Client
 }
 
-func NewEtcdResolver(config *NewEtcdConfig) (discovery.Resolver, error) {
+func NewEtcdResolver(config *NewResolverConfig) (discovery.Resolver, error) {
 	c, err := clientv3.New(clientv3.Config{
 		Endpoints: []string{config.EtcdUrl},
 		Username:  config.Username,

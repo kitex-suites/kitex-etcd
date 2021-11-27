@@ -12,6 +12,7 @@ import (
 
 type etcdRegistry struct {
 	etcdClient *clientv3.Client
+	weight     int
 }
 
 // for mashal and unmashal
@@ -23,9 +24,14 @@ type registryInfo struct {
 	Tags        map[string]string `json:"tags"`
 }
 
-func NewEtcdRegistry(config *NewEtcdConfig) (registry.Registry, error) {
+func NewEtcdRegistry(config *NewRegistryConfig) (registry.Registry, error) {
 	if config.EtcdUrl == "" {
 		return nil, errorEtcdUrlEmpty
+	}
+
+	weight := config.Weight
+	if weight <= 0 {
+		weight = defaultWeight
 	}
 
 	c, err := clientv3.New(clientv3.Config{
@@ -39,6 +45,7 @@ func NewEtcdRegistry(config *NewEtcdConfig) (registry.Registry, error) {
 
 	return &etcdRegistry{
 		etcdClient: c,
+		weight:     weight,
 	}, nil
 }
 
@@ -57,7 +64,7 @@ func (registry *etcdRegistry) Deregister(info *registry.Info) error {
 func (registry *etcdRegistry) register(info *registry.Info) error {
 	weight := info.Weight
 	if weight <= 0 {
-		weight = defaultWeight
+		weight = registry.weight
 	}
 
 	regInfo := &registryInfo{

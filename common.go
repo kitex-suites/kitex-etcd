@@ -15,10 +15,17 @@ var (
 	errorEtcdUrlEmpty = errors.New("")
 )
 
-type NewEtcdConfig struct {
+type NewResolverConfig struct {
 	EtcdUrl  string
 	Username string
 	Password string
+}
+
+type NewRegistryConfig struct {
+	EtcdUrl  string
+	Username string
+	Password string
+	Weight   int
 }
 
 func getEtcdPrefix(serviceName string) string {

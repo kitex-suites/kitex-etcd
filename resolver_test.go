@@ -7,7 +7,7 @@ import (
 )
 
 func TestEtcdResolverName(t *testing.T) {
-	resolver, err := kitexetcd.NewEtcdResolver(&kitexetcd.NewEtcdConfig{
+	resolver, err := kitexetcd.NewEtcdResolver(&kitexetcd.NewResolverConfig{
 		EtcdUrl: "http://127.0.0.1:2397",
 	})
 	if err != nil {
