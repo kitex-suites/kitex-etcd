@@ -55,11 +55,16 @@ func (registry *etcdRegistry) Deregister(info *registry.Info) error {
 }
 
 func (registry *etcdRegistry) register(info *registry.Info) error {
+	weight := info.Weight
+	if weight <= 0 {
+		weight = defaultWeight
+	}
+
 	regInfo := &registryInfo{
 		ServiceName: info.ServiceName,
 		Addr:        info.Addr.String(),
 		Network:     info.Addr.Network(),
-		Weight:      info.Weight,
+		Weight:      weight,
 		Tags:        info.Tags,
 	}
 
